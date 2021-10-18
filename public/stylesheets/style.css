@@ -1,0 +1,123 @@
+body {
+  height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  background-color: teal;
+}
+
+main{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.smallbox{
+  width: 400px;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.largebox{
+  width: 800px;
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+}
+
+.doublebox{
+  display: flex;
+}
+
+.leftbox{
+  width: 100%;
+  padding-right: 20px;
+}
+
+.rightbox{
+  width: 100%;
+  padding-left: 20px;
+}
+
+.center-align{
+  text-align: center;
+  padding: 20px 0;
+}
+
+.left-align{
+  text-align: left;
+  padding: 20px 0;
+}
+
+/* .subbox h2{
+  padding: 15px 0;
+} */
+
+
+
+/* .subbox input{
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  border: none;
+  outline: none;
+  padding: 10px 5px;
+  border-radius: 10px;
+  background-color: gainsboro;
+} */
+
+.input{
+  margin: 15px 0;
+}
+
+.input label{
+  margin-left: 5px;
+}
+
+.input small{
+  margin-left: 5px;
+}
+
+.input div{
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: gainsboro;
+}
+
+.input input{
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: gainsboro;
+}
+
+.input-date{
+  
+}
+
+.button{
+  background-color: teal;
+  padding: 10px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.link{
+  font-size: 12px;
+  text-align: center;
+}
+
+.link a{
+  color: teal;
+}
+
+.checkbox{
+  display: flex;
+}
