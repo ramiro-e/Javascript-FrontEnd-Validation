@@ -47,6 +47,11 @@ main{
   margin: 15px 0;
 }
 
+.input-field *{
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .input-field label{
   margin-left: 5px;
 }
@@ -63,24 +68,23 @@ main{
   border: solid 1px gainsboro;
 }
 
-.input-neutral-selected{
-  background-color: gainsboro;
-  border: solid 2px gray;
+.input-neutral:focus{
+  outline: none;
 }
 
-.input-neutral input{
+/* .input-neutral input{
   width: 100%;
   border: none;
   outline: none;
   background-color: gainsboro;
+} */
+
+.input-neutral-selected{
+  border: solid 2px gray;
 }
 
 .input-success{
   border: solid 2px #52B788;
-  background-color: #B7E4C7;
-}
-
-.input-success input{
   background-color: #B7E4C7;
 }
 
@@ -90,10 +94,6 @@ main{
 
 .input-error{
   border: solid 2px #EF233C;
-  background-color: #F9B3BB;
-}
-
-.input-error input{
   background-color: #F9B3BB;
 }
 
