@@ -3,31 +3,32 @@
     <%- include('./partials/head'); %>
 <body>
     <main>
-        <div class="largebox">
+        <div class="box largebox h2mod">
             <h2>Ingresa tus datos:</h2>
-            <form action="/login" method="POST" id="formulario" onsubmit=" return validaciones()">
+            <form action="/users/register" method="POST" id="formulario" onsubmit=" return register()">
                 <div class="left-align">
 
                     <div class="doublebox">
                         <div class="leftbox">
-                            <div class="input">
+                            <div class="input-field">
                                 <label>Nombre</label>
-                                <div><input type="email" class="email" id="email" name="nombre"></div>
+                                <div class="input-neutral"><input type="text" id="nombre" name="nombre"></div>
                                 <small>error mesagge</small>
                             </div>
                                    
-                            <div class="input">
+                            <div class="input-field">
                                 <label>Apellido</label>
-                                <div><input type="email" class="email" id="email" name="apellido"></div>
+                                <div class="input-neutral"><input type="text" id="apellido" name="apellido"></div>
                                 <small>error mesagge</small>
                             </div>
         
-                            <div class="input">
+                            <div>
                                 <label for="">Fecha de nacimiento</label>
                                 <div>
                                     <span>
                                         <!-- <label for="dia">Dia</label> -->
-                                        <select name="birthDay" class="">
+                                        <select name="dia" id="dia" class="input-date">
+                                            <option value="">Dia</option>
                                             <option value="01">1</option>
                                             <option value="02">2</option>
                                             <option value="03">3</option>
@@ -63,7 +64,8 @@
                                    </span>
                                     <span>
                                         <!-- <label for="mes">Mes</label> -->
-                                        <select name="birthMonth" class="">
+                                        <select name="mes" id="mes" class="input-date">
+                                            <option value="">Mes</option>
                                             <option value="01">Enero</option>
                                             <option value="02">Febrero</option>
                                             <option value="03">Marzo</option>
@@ -80,7 +82,8 @@
                                    </span>
                                    <span>
                                         <!-- <label for="anio">Año</label> -->
-                                        <select name="birthYear" class="">
+                                        <select name="año" id="año" class="input-date">
+                                            <option value="">Año</option>
                                             <option value="2021">2021</option>
                                             <option value="2020">2020</option>
                                             <option value="2019">2019</option>
@@ -211,21 +214,21 @@
                         </div>
                         <div class="rightbox">
 
-                            <div class="input">
+                            <div class="input-field">
                                 <label>Email</label>
-                                <div><input type="email" class="email" id="email" name="email"></div>
+                                <div class="input-neutral"><input type="email" id="email" name="email"></div>
                                 <small>error mesagge</small>
                             </div>
                             
-                            <div class="input">
+                            <div class="input-field">
                                 <label>Contraseña</label>
-                                <div><input type="password" id="password" name="contraseña" aria-label="Username"></div>
+                                <div class="input-neutral"><input type="password" id="contraseña" name="contraseña" aria-label="Username"></div>
                                 <small>error mesagge</small>
                             </div>
         
-                            <div class="input">
+                            <div class="input-field">
                                 <label>Repetir Contraseña</label>
-                                <div><input type="password" id="password" name="repetirContraseña" aria-label="Username"></div>
+                                <div class="input-neutral"><input type="password" id="repetirContraseña" name="repetirContraseña" aria-label="Username"></div>
                                 <small>error mesagge</small>
                             </div>
 
@@ -243,5 +246,6 @@
             </form>
         </div>
     </main>
+    <script src="/javascripts/register2.js" type="text/javascript"></script>
 </body>
 </html>

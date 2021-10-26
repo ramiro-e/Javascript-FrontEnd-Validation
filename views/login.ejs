@@ -3,20 +3,20 @@
     <%- include('./partials/head'); %>
 <body>
     <main>
-        <div class="smallbox">
+        <div class="box smallbox h2mod">
             <h2>Ingresa tus datos:</h2>
-            <form action="/login" method="POST" id="formulario" onsubmit=" return validaciones()">
+            <form action="/users/login" method="POST" id="formulario" onsubmit=" return validaciones()">
                 <div class="left-align">
                     
-                    <div class="input">
+                    <div class="input-field">
                         <label>Email</label>
-                        <div><input type="email" class="email" id="email" name="email"></div>
+                        <div class="input-neutral"><input type="email" class="email" id="email" name="email"></div>
                         <small>error mesagge</small>
                     </div>
                     
-                    <div class="input">
+                    <div class="input-field">
                         <label>Contraseña</label>
-                        <div><input type="password" id="password" name="contraseña" aria-label="Username"></div>
+                        <div class="input-neutral"><input type="password" id="password" name="contraseña" aria-label="Username"></div>
                         <small>error mesagge</small>
                     </div>
                 </div>
