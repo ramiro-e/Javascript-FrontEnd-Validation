@@ -1,7 +1,9 @@
+/* ///////////////////////////////// SELECTORES UNIVERSALES ///////////////////////////////// */
+
 body {
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
-  background-color: teal;
+  background-color: #52B788;
 }
 
 main{
@@ -11,18 +13,129 @@ main{
   align-items: center;
 }
 
+/* ///////////////////////////////// TODOS ///////////////////////////////// */
+
 .smallbox{
   width: 400px;
+}
+
+.box{
   background-color: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 10px;
 }
 
+/* ///////////////////////////////// INDEX ///////////////////////////////// */
+
+.center-align{
+  text-align: center;
+  margin: 20px 0;
+}
+
+.link{
+  font-size: 12px;
+  text-align: center;
+}
+
+.link a{
+  color: #52B788;
+}
+
+/* ///////////////////////////////// LOGIN Y REGISTER ///////////////////////////////// */
+
+.input-field{
+  margin: 15px 0;
+}
+
+.input-field label{
+  margin-left: 5px;
+}
+
+.input-field small{
+  margin-left: 5px;
+}
+
+.input-neutral{
+  margin-top: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: gainsboro;
+  border: solid 1px gainsboro;
+}
+
+.input-neutral-selected{
+  background-color: gainsboro;
+  border: solid 2px gray;
+}
+
+.input-neutral input{
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: gainsboro;
+}
+
+.input-success{
+  border: solid 2px #52B788;
+  background-color: #B7E4C7;
+}
+
+.input-success input{
+  background-color: #B7E4C7;
+}
+
+.input-error-selected{
+  border: solid 2px #EF233C;
+}
+
+.input-error{
+  border: solid 2px #EF233C;
+  background-color: #F9B3BB;
+}
+
+.input-error input{
+  background-color: #F9B3BB;
+}
+
+.input-date{
+  margin: 5px 3px 0 0;
+  padding: 11px;
+  border: none;
+  border-radius: 10px;
+  background-color: gainsboro;
+}
+
+.button{
+  background-color: #52B788;
+  padding: 10px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.h2mod h2{
+  padding: 0px;
+  margin: 0px;
+}
+
+.left-align{
+  text-align: left;
+  margin: 20px 0;
+}
+
+.checkbox{
+  display: flex;
+}
+
+/* ///////////////////////////////// REGISTER ///////////////////////////////// */
+
 .largebox{
   width: 800px;
-  background-color: white;
-  padding: 40px;
-  border-radius: 10px;
 }
 
 .doublebox{
@@ -31,23 +144,33 @@ main{
 
 .leftbox{
   width: 100%;
-  padding-right: 20px;
+  padding-right: 15px;
 }
+
 
 .rightbox{
   width: 100%;
-  padding-left: 20px;
+  padding-left: 15px;
 }
 
-.center-align{
-  text-align: center;
-  padding: 20px 0;
-}
+/* ///////////////////////////////// LOGIN ///////////////////////////////// */
 
-.left-align{
-  text-align: left;
-  padding: 20px 0;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* .subbox h2{
   padding: 15px 0;
@@ -66,58 +189,5 @@ main{
   background-color: gainsboro;
 } */
 
-.input{
-  margin: 15px 0;
-}
 
-.input label{
-  margin-left: 5px;
-}
 
-.input small{
-  margin-left: 5px;
-}
-
-.input div{
-  margin-top: 5px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: gainsboro;
-}
-
-.input input{
-  width: 100%;
-  border: none;
-  outline: none;
-  background-color: gainsboro;
-}
-
-.input-date{
-  
-}
-
-.button{
-  background-color: teal;
-  padding: 10px 25px;
-  border-radius: 10px;
-  text-decoration: none;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 16px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-.link{
-  font-size: 12px;
-  text-align: center;
-}
-
-.link a{
-  color: teal;
-}
-
-.checkbox{
-  display: flex;
-}
