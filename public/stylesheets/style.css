@@ -65,19 +65,28 @@ main{
   padding: 10px;
   border-radius: 10px;
   background-color: gainsboro;
-  border: solid 1px gainsboro;
+  border: solid 2px gainsboro;
 }
 
 .input-neutral:focus{
   outline: none;
 }
 
-/* .input-neutral input{
-  width: 100%;
-  border: none;
-  outline: none;
+.input-date{
+  margin: 5px 3px 0 0;
+  padding: 11px;
+  border: solid 2px gainsboro;
+  border-radius: 10px;
   background-color: gainsboro;
-} */
+}
+
+#dateErrorMsg {
+  margin-left: 5px;
+}
+
+.input-date:focus{
+  outline: none;
+}
 
 .input-neutral-selected{
   border: solid 2px gray;
@@ -97,13 +106,14 @@ main{
   background-color: #F9B3BB;
 }
 
-.input-date{
-  margin: 5px 3px 0 0;
-  padding: 11px;
-  border: none;
-  border-radius: 10px;
-  background-color: gainsboro;
+.error-msg{
+  color: #EF233C;
 }
+
+.hide-error-msg{
+  visibility: hidden;
+}
+
 
 .button{
   background-color: #52B788;
