@@ -53,8 +53,7 @@ function setSelectError(input){
 }
 
 function focusInput(input){
-    if(input
-        .classList.contains("input-error")){
+    if(input.classList.contains("input-error")){
         setSelectError(input)
     }else{
         setSelect(input)
@@ -87,25 +86,19 @@ function blurDateInput(input){
     input.classList.remove("input-error-selected")
     let dates = [dia,mes,año]
     let errorDates = []
-    let datePosition
+    let datePosition = dates.indexOf(input)
     dates.forEach((date, index)=>{
-        if (input.id === dates[index].id) {
-            datePosition = index
-        }
-    })
-    for (let i = 0; i <= datePosition; i++) {
-        let date = dates[i]
-        if(date.value === ""){
+        if ((index <= datePosition && date.value === "") || date.classList.contains('input-error')) {
             if (!errorDates.length){
                 errorDates = errorDates + date.id
             }else{
                 errorDates = errorDates + ", " + date.id
             }
             setErrorClass(date)
-        }else{
+        } else if(index <= datePosition && date.value != "") {
             setSuccessClass(date)
         }
-    }
+    })
     let error = "El campo " + errorDates + " esta vacio"
     if(errorDates.length > 0){
         setErrorMsg(errorMsg ,error)
@@ -116,27 +109,75 @@ function blurDateInput(input){
     }   
 }
 
-// function submitDateCheck(){
-//     let errorMsg = document.querySelector('date');
-//     let dates = [dia,mes,año]
-//     let errorDates = []
-//     dates.forEach((date)=>{
-//         if(date.value === ""){
-//             if (!errorDates.length){
-//                 errorDates = errorDates + date.id
-//             }else{
-//                 errorDates = errorDates + ", " + date.id
-//             }
-//         }
-//     })
+const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-//     let error = "El campo " + errorDates + " esta vacio"
-//     if(!errorDates.length){
-//         setErrorMsg(errorMsg ,error)
-//     }else{
-//         setSuccessMsg(errorMsg)
-//     }
-// }
+(function populateMonths(){
+    for(let i = 0; i < months.length; i++){
+        const option = document.createElement('option');
+        option.textContent = months[i];
+        option.value = i + 1;
+        mes.appendChild(option);
+    }
+
+})();
+
+let diaAnterior;
+
+function populateDays(mesNum){
+    while(dia.firstChild){
+        dia.removeChild(dia.firstChild);
+    }
+    let diaNum;
+    let añoNum = año.value;
+
+    if(mesNum === '1' || mesNum === '3' || mesNum === '5' || mesNum === '7' || mesNum === '8' || mesNum === '10' || mesNum === '12' || mesNum === "") {
+        diaNum = 31;
+    } else if(mesNum === '4' || mesNum === '6' || mesNum === '9' || mesNum === '11') {
+        diaNum = 30;
+    }else{
+        if(new Date(añoNum, 1, 29).getMonth() === 1){
+            diaNum = 29;
+        }else{
+            diaNum = 28;
+        }
+    }
+    const mesOption = document.createElement("option");
+    mesOption.textContent = "Dia";
+    mesOption.value = ""
+    dia.appendChild(mesOption);
+    for(let i = 1; i <= diaNum; i++){
+        const option = document.createElement("option");
+        option.textContent = i;
+        option.value = i
+        dia.appendChild(option);
+    }
+    if(diaAnterior){
+        dia.value = diaAnterior;
+        if(dia.value === ""){
+            dia.value = diaAnterior - 1;
+        }
+        if(dia.value === ""){
+            dia.value = diaAnterior - 2;
+        }
+        if(dia.value === ""){
+            dia.value = diaAnterior - 3;
+        }
+    }
+}
+
+function populateYears(){
+    let añoNum = new Date().getFullYear();
+    for(let i = 0; i < 101; i++){
+        const option = document.createElement("option");
+        option.textContent = añoNum - i;
+        option.value = añoNum - i;
+        año.appendChild(option);
+    }
+}
+
+populateDays(mes.value);
+populateYears();
+
 
 function submitCheckboxCheck(input, error){
     let errorMsg = document.querySelector('small#aceptarTyC');
@@ -201,6 +242,10 @@ dia.addEventListener("blur", function( event ) {
     blurDateInput(event.target)
 }, true);
 
+dia.addEventListener("change", function( event ) {
+    diaAnterior = dia.value;
+}, true);
+
 ////////////////////////////////// mes ////////////////////////////////////
 
 mes.addEventListener("focus", function(event){
@@ -211,6 +256,10 @@ mes.addEventListener("blur", function( event ) {
     blurDateInput(event.target)
 }, true);
 
+mes.addEventListener("change", function( event ) { 
+    populateDays(mes.value);
+}, true);
+
 ////////////////////////////////// año ////////////////////////////////////
 
 año.addEventListener("focus", function(event){
@@ -219,6 +268,10 @@ año.addEventListener("focus", function(event){
 
 año.addEventListener("blur", function( event ) {
     blurDateInput(event.target)
+}, true);
+
+año.addEventListener("change", function( event ) {
+    populateDays(mes.value);
 }, true);
 
 ////////////////////////////////// email ////////////////////////////////////
