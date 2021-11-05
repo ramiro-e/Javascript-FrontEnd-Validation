@@ -1,0 +1,34 @@
+[
+  {
+    "nombre": "Ramiro Manuel",
+    "apellido": "Estevez",
+    "email": "ramiroestevez96@gmail.com",
+    "fecha": "1/1/2021",
+    "contraseña": "$2a$10$4qjGWE.1cYbiADkqOX.JyOvS39oKMivBzvrHQedV4t4ExEyA6JOEK",
+    "role": 1
+  },
+  {
+    "nombre": "Ramiro Manuel",
+    "apellido": "Estevez",
+    "email": "ramiroestevez96@gmail.com",
+    "fecha": "1/1/2021",
+    "contraseña": "$2a$10$HhAd7oDFzBp71iaBIJZbJuOyeuSlL2SyfAS6t2ShPqeLI2m2Tpwd.",
+    "role": 1
+  },
+  {
+    "nombre": "Ramiro Manuel",
+    "apellido": "Estevez",
+    "email": "ramiroestevez96@gmail.com",
+    "fecha": "1/1/2021",
+    "contraseña": "$2a$10$Q1fPofWJAV806sniAE5FdOwiiWrizItxp69w6xwy8ZfpU7ooW50C.",
+    "role": 1
+  },
+  {
+    "nombre": "Ramiro Manuel",
+    "apellido": "Estevez",
+    "email": "ramiroestevez04@hotmail.com",
+    "fecha": "06/03/2018",
+    "contraseña": "$2a$10$0KU8cAXUqTStuCxVzfph4OLBKpNE3wezxOWMJlq4yB9dEGiSIemWK",
+    "role": 1
+  }
+]
