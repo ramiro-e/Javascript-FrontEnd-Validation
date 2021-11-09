@@ -1,13 +1,26 @@
 /* ///////////////////////////////// SELECTORES UNIVERSALES ///////////////////////////////// */
 
+
+html {
+  width: 100%;
+  height: 100%;
+  display: table;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  height: 100vh;
   font-family: 'Montserrat', sans-serif;
   background-color: #52B788;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
 }
 
 main{
-  height: 100%;
+  box-sizing: border-box;
+  height: calc(100vh - 70px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,12 +38,25 @@ main{
   border-radius: 10px;
 }
 
-/* ///////////////////////////////// INDEX ///////////////////////////////// */
+/* ///////////////////////////////// ALINIAMIENTO ///////////////////////////////// */
 
-.center-align{
-  text-align: center;
-  margin: 20px 0;
-}
+.left-align{text-align: left;}
+
+.center-align{text-align: center;}
+
+.right-align{text-align: right;}
+
+/* ///////////////////////////////// MARGENES ///////////////////////////////// */
+
+.margin20v{margin: 20px 0;}
+
+.margin10r{margin-right: 10px;}
+
+.margin10l{margin-left: 10px;}
+
+.margin50h10v{margin: 10px 50px;}
+
+/* ///////////////////////////////// LINKS ///////////////////////////////// */
 
 .link{
   font-size: 12px;
@@ -41,7 +67,7 @@ main{
   color: #52B788;
 }
 
-/* ///////////////////////////////// LOGIN Y REGISTER ///////////////////////////////// */
+/* ///////////////////////////////// INPUTS ///////////////////////////////// */
 
 .input-field{
   margin: 15px 0;
@@ -64,6 +90,7 @@ main{
   margin-top: 5px;
   padding: 10px;
   border-radius: 10px;
+  font-size: 15px;
   background-color: gainsboro;
   border: solid 2px gainsboro;
 }
@@ -114,35 +141,59 @@ main{
   visibility: hidden;
 }
 
+/* ///////////////////////////////// BOTONES ///////////////////////////////// */
 
 .button{
   background-color: #52B788;
   padding: 10px 25px;
   border-radius: 10px;
   text-decoration: none;
-  border: none;
+  border: 1px solid #52B788;
   outline: none;
   color: white;
   font-size: 16px;
   text-align: center;
-  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, border 0.3s;
+
 }
+
+.button:hover{
+  background-color: #429E73;
+  border: 1px solid #429E73;
+}
+
+.outline-button{
+  background-color: white;
+  padding: 10px 25px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid #52B788;
+  outline: none;
+  color: #52B788;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: border 0.3s, background-color 0.3s, color 0.3s;
+}
+
+.outline-button:hover{
+  border: 1px solid #429E73;
+  background-color: #429E73;
+  color: white;
+}
+
+
 
 .h2mod h2{
   padding: 0px;
   margin: 0px;
 }
 
-.left-align{
-  text-align: left;
-  margin: 20px 0;
-}
 
-.checkbox{
-  display: flex;
-}
+/* ///////////////////////////////// CAJAS ///////////////////////////////// */
 
-/* ///////////////////////////////// REGISTER ///////////////////////////////// */
+
 
 .largebox{
   width: 800px;
@@ -164,6 +215,29 @@ main{
 }
 
 /* ///////////////////////////////// LOGIN ///////////////////////////////// */
+
+/* ///////////////////////////////// HEADER ///////////////////////////////// */
+
+.header{
+  width: 100%;
+  height: 70px;
+  background-color: white;
+}
+.navbar{
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 70px;
+}
+
+
+
+.logo{
+  width: 200px;
+}
+
+
 
 
 

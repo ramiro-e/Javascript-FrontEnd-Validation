@@ -2,10 +2,11 @@
 <html lang="en">
     <%- include('./partials/head'); %>
 <body>
+    <%- include('./partials/header'); %>
     <main>
         <div class="box largebox h2mod">
             <h2>Ingresa tus datos:</h2>
-            <% if(errors.length){%>
+            <% if(typeof(errors) != 'undefined'){%>
                 <div class="input-error">
                     <ul class="list-unstyled">
                         <% errors.forEach(error => { %>
@@ -15,7 +16,7 @@
                 </div>
             <%}%>   
             <form action="/users/register" method="POST" id="formulario">
-                <div class="left-align">
+                <div class="left-align margin20v">
 
                     <div class="doublebox">
                         <div class="leftbox">
@@ -49,8 +50,6 @@
                                     <select name="año" id="año" class="input-date">
                                         <option value="">Año</option>
                                     </select>
-
-                                    <input type="hidden" name="fecha" id="fecha" >
                                     
                                 </div>
                                 <small id="date" class="error-msg hide-error-msg">error</small>
@@ -79,13 +78,16 @@
                         </div>
                     </div>                   
                 </div>
-                <div>
-                    <input type="checkbox" name="recordarme" id="aceptarTyC"><label>Acepto los terminos y condiciones</label> <br>
-                    <small id="aceptarTyC" class="error-msg hide-error-msg">error message</small>    
-                </div>
-                <div class="center-align"><button type="submit" value="Enviar" class="button">Registrarme</button></div>
-                <div class="link">
-                    <a href="/users/login">Ingresar</a>
+                <div class="doublebox">
+                    <div class="leftbox">
+                        <input type="checkbox" name="recordarme" id="aceptarTyC"><label>Acepto los terminos y condiciones</label> <br>
+                        <small id="aceptarTyC" class="error-msg hide-error-msg">error message</small> 
+                    </div>
+                    <div class="rightbox">
+                        <div class="right-align">
+                            <button type="submit" value="Enviar" class="button">Registrarme</button>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

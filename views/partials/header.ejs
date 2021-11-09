@@ -1,0 +1,19 @@
+<header class="header">
+  <nav class="navbar">
+    <div class="">
+      <a href="/"><img src="/images/logo.png" alt="" class="logo"></a>
+    </div>
+    <div class="">
+      <% if(locals.usuario){ %>
+        <div>
+          <a href="/users/logout" class="outline-button">Cerrar sesión</a>
+        </div>
+      <% }else{ %>
+        <div>
+          <a href="/users/register" class="outline-button">Regirtrarse</a>
+          <a href="/users/login" class="button">Ingresar</a>
+        </div>
+      <%}%>
+    </div>
+  </nav>
+</header>
