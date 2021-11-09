@@ -10,9 +10,6 @@ let repetirContraseña = document.querySelector('input#repetirContraseña');
 let aceptarTyC = document.querySelector('input#aceptarTyC');
 
 let soloLetrasRGEX = /^[a-zA-Z\s]*$/;
-let diaRGEX = /^\b(0?[1-9]|[12][0-9]|3[01])\b/;
-let mesRGEX = /0[1-9]|1[0-2]/;
-let añoRGEX = /(?:(?:19|20)[0-9]{2})/;
 let emailRGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 let contraseñaRGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
@@ -109,13 +106,23 @@ function blurDateInput(input){
     }   
 }
 
+function completarInputFecha() {
+    let inputFecha = document.querySelector('input#fecha')
+    inputFecha.value = dia.value + "/" + mes.value + "/" + año.value
+}
+
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
 (function populateMonths(){
     for(let i = 0; i < months.length; i++){
         const option = document.createElement('option');
         option.textContent = months[i];
-        option.value = i + 1;
+        let value = i + 1
+        if(i<9){
+            option.value = "0" + value;
+        }else{
+            option.value = value;
+        }
         mes.appendChild(option);
     }
 
@@ -130,9 +137,9 @@ function populateDays(mesNum){
     let diaNum;
     let añoNum = año.value;
 
-    if(mesNum === '1' || mesNum === '3' || mesNum === '5' || mesNum === '7' || mesNum === '8' || mesNum === '10' || mesNum === '12' || mesNum === "") {
+    if(mesNum === '01' || mesNum === '03' || mesNum === '05' || mesNum === '07' || mesNum === '08' || mesNum === '10' || mesNum === '12' || mesNum === "") {
         diaNum = 31;
-    } else if(mesNum === '4' || mesNum === '6' || mesNum === '9' || mesNum === '11') {
+    } else if(mesNum === '04' || mesNum === '06' || mesNum === '09' || mesNum === '11') {
         diaNum = 30;
     }else{
         if(new Date(añoNum, 1, 29).getMonth() === 1){
@@ -148,7 +155,12 @@ function populateDays(mesNum){
     for(let i = 1; i <= diaNum; i++){
         const option = document.createElement("option");
         option.textContent = i;
-        option.value = i
+        let value = i + 1
+        if(i<9){
+            option.value = "0" + value;
+        }else{
+            option.value = value;
+        }
         dia.appendChild(option);
     }
     if(diaAnterior){
@@ -181,7 +193,6 @@ populateYears();
 
 function submitCheckboxCheck(input, error){
     let errorMsg = document.querySelector('small#aceptarTyC');
-    console.log(errorMsg)
     if(!input.checked){
         setErrorMsg(errorMsg , error)
         return false
@@ -304,6 +315,11 @@ repetirContraseña.addEventListener("blur", function( event ) {
     blurPasswordRepeat(event.target)
 }, true);
 
+////////////////////////////////// aceptarTyC ////////////////////////////////////
+
+aceptarTyC.addEventListener("change", function( event ) {
+    submitCheckboxCheck(aceptarTyC, aceptarTyCError)
+}, true);
 
 ////////////////////////////////// submit ////////////////////////////////////
 
@@ -318,7 +334,7 @@ form.addEventListener("submit", function( submit ) {
     contraseñaResultado = blurTextInput(contraseña, contraseñaError, contraseñaRGEX)
     repetirContraseñaResultado = blurPasswordRepeat(repetirContraseña)
     aceptarTyCResultado = submitCheckboxCheck(aceptarTyC, aceptarTyCError)
-    console.log(aceptarTyCResultado)
+    completarInputFecha()
     if(nombreResultado && apellidoResultado && diaResultado && mesResultado && añoResultado &&  emailResultado && contraseñaResultado && repetirContraseñaResultado && aceptarTyCResultado){
         form.submit()
     }else{
