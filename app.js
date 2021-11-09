@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 let session = require("express-session")
+let cors = require('cors')
 
 var indexRouter = require('./routes/indexRoute');
 var usersRouter = require('./routes/usersRoute');
@@ -17,7 +18,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({secret:"Javascript FrontEnd Validation"}))
+app.use(session({secret:"Javascript FrontEnd Validation"}));
+app.use(cors());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
