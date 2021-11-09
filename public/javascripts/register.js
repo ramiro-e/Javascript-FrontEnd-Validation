@@ -10,6 +10,7 @@ let repetirContraseña = document.querySelector('input#repetirContraseña');
 let aceptarTyC = document.querySelector('input#aceptarTyC');
 
 let soloLetrasRGEX = /^[a-zA-Z\s]*$/;
+let fechaRGEX = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
 let emailRGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 let contraseñaRGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
@@ -106,9 +107,13 @@ function blurDateInput(input){
     }   
 }
 
-function completarInputFecha() {
-    let inputFecha = document.querySelector('input#fecha')
-    inputFecha.value = dia.value + "/" + mes.value + "/" + año.value
+function checkInputFecha() {
+    let fecha = dia.value + "/" + mes.value + "/" + año.value
+    if (fechaRGEX.test(fecha)){
+        return true
+    }else{
+        return false
+    }
 }
 
 const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -223,6 +228,12 @@ function blurPasswordRepeat(input){
     }
 }
 
+function checkIfEmailExists() {
+    console.log("hola")
+    fetch('http://localhost:3000/users/checkEmail', {method:'POST', body: JSON.stringify(email.value), headers: {'Content-Type': 'application/json'},})
+}
+
+
 ////////////////////////////////// nombre ////////////////////////////////////
 
 nombre.addEventListener("focus", function( event ) {
@@ -295,6 +306,10 @@ email.addEventListener("blur", function( event ) {
     blurTextInput(event.target, emailError, emailRGEX)
 }, true);
 
+email.addEventListener("change", function( event ) {
+    checkIfEmailExists()
+}, true);
+
 ////////////////////////////////// contraseña ////////////////////////////////////
 
 contraseña.addEventListener("focus", function(event){
@@ -327,15 +342,16 @@ form.addEventListener("submit", function( submit ) {
     submit.preventDefault()
     nombreResultado = blurTextInput(nombre, soloLetrasError, soloLetrasRGEX)
     apellidoResultado = blurTextInput(apellido, soloLetrasError, soloLetrasRGEX)
-    diaResultado = blurDateInput(dia)
-    mesResultado = blurDateInput(mes)
-    añoResultado = blurDateInput(año)
+    blurDateInput(dia)
+    blurDateInput(mes)
+    blurDateInput(año)
     emailResultado = blurTextInput(email, emailError, emailRGEX)
     contraseñaResultado = blurTextInput(contraseña, contraseñaError, contraseñaRGEX)
     repetirContraseñaResultado = blurPasswordRepeat(repetirContraseña)
     aceptarTyCResultado = submitCheckboxCheck(aceptarTyC, aceptarTyCError)
-    completarInputFecha()
-    if(nombreResultado && apellidoResultado && diaResultado && mesResultado && añoResultado &&  emailResultado && contraseñaResultado && repetirContraseñaResultado && aceptarTyCResultado){
+    fechaResultado = checkInputFecha()
+    console.log(fechaResultado)
+    if(nombreResultado && apellidoResultado && fechaResultado &&  emailResultado && contraseñaResultado && repetirContraseñaResultado && aceptarTyCResultado){
         form.submit()
     }else{
         submit.preventDefault()

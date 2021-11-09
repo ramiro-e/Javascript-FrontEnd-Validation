@@ -50,7 +50,7 @@ const userControllers = {
                 nombre: req.body.nombre,
                 apellido: req.body.apellido,
                 email: req.body.email,
-                fecha: req.body.fecha,
+                fecha: req.body.dia + "/" + req.body.mes + "/" + req.body.año,
                 contraseña: bcrypt.hashSync(req.body.contraseña, 10),
                 role: 1
             }
@@ -74,6 +74,21 @@ const userControllers = {
             })
         }
     },
+    checkEmail: (req, res) => {
+        console.log("hola")
+        console.log(req)
+        let usersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../database/users.json')));
+        let checkEmailResult
+        if(usersDatabase.find(usuario => usuario.email == req.body.email)){
+            checkEmailResult = true
+        }else{
+            checkEmailResult = false 
+        }
+        res.json(checkEmailResult)
+        console.log(checkEmailResult)
+        
+
+    }
 }
 
 module.exports = userControllers;
