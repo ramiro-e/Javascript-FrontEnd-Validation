@@ -16,8 +16,9 @@ let contraseñaRGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
 let vacioError = "El campo esta vacio"
 let soloLetrasError = "El campo solo puede contener letras"
-let emailError = "El campo no contiene un email valido"
-let contraseñaError = "El campo debe contener letras mayusculas, minusculas y numeros "
+let emailError = "El email ingresado no es valido"
+let emailExistError = "El email ingresado ya esta registrado"
+let contraseñaError = "La contraseña contener letras mayusculas, minusculas y numeros "
 let repetirContraseñaError = "Las contraseñas no coinciden"
 let aceptarTyCError = "Debe aceptar los terminos y condiciones"
 
@@ -228,11 +229,52 @@ function blurPasswordRepeat(input){
     }
 }
 
-function checkIfEmailExists() {
-    console.log("hola")
-    fetch('http://localhost:3000/users/checkEmail', {method:'POST', body: JSON.stringify(email.value), headers: {'Content-Type': 'application/json'},})
+async function blurEmailInput(){
+    let errorMsg = document.querySelector('small#email');
+    email.classList.remove("input-neutral-selected")
+    email.classList.remove("input-error-selected")
+    let emailExistResult = await checkIfEmailExists()
+    if(email.value === ""){
+        setErrorClass(email)
+        setErrorMsg(errorMsg ,vacioError)
+        return false
+    }else if (!emailRGEX.test(email.value)){
+        setErrorClass(email)
+        setErrorMsg(errorMsg, emailError)
+        return false
+    }else if (emailExistResult){
+        setErrorClass(email)
+        setErrorMsg(errorMsg, emailExistError)
+        return false
+    }else{
+        setSuccessClass(email)
+        setSuccessMsg(errorMsg)
+        return true
+    }
+
 }
 
+
+
+async function checkIfEmailExists() {
+    let currentEmail = JSON.stringify({email:email.value})
+    let response = await fetchEmail(currentEmail)
+    let data = await response.json();
+    let checkEmail = data.checkEmail
+
+    return checkEmail
+}
+
+async function fetchEmail(email) {
+    let response = await fetch('http://localhost:3000/users/checkEmail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: email
+    })
+    return response;
+}
 
 ////////////////////////////////// nombre ////////////////////////////////////
 
@@ -303,11 +345,7 @@ email.addEventListener("focus", function(event){
 }, true);
 
 email.addEventListener("blur", function( event ) {
-    blurTextInput(event.target, emailError, emailRGEX)
-}, true);
-
-email.addEventListener("change", function( event ) {
-    checkIfEmailExists()
+    blurEmailInput()
 }, true);
 
 ////////////////////////////////// contraseña ////////////////////////////////////
@@ -338,19 +376,19 @@ aceptarTyC.addEventListener("change", function( event ) {
 
 ////////////////////////////////// submit ////////////////////////////////////
 
-form.addEventListener("submit", function( submit ) {
+form.addEventListener("submit", async function( submit ) {
     submit.preventDefault()
     nombreResultado = blurTextInput(nombre, soloLetrasError, soloLetrasRGEX)
     apellidoResultado = blurTextInput(apellido, soloLetrasError, soloLetrasRGEX)
     blurDateInput(dia)
     blurDateInput(mes)
     blurDateInput(año)
-    emailResultado = blurTextInput(email, emailError, emailRGEX)
+    emailResultado = await blurEmailInput()
     contraseñaResultado = blurTextInput(contraseña, contraseñaError, contraseñaRGEX)
     repetirContraseñaResultado = blurPasswordRepeat(repetirContraseña)
     aceptarTyCResultado = submitCheckboxCheck(aceptarTyC, aceptarTyCError)
     fechaResultado = checkInputFecha()
-    console.log(fechaResultado)
+    submit.preventDefault()
     if(nombreResultado && apellidoResultado && fechaResultado &&  emailResultado && contraseñaResultado && repetirContraseñaResultado && aceptarTyCResultado){
         form.submit()
     }else{

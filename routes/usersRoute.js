@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const multer = require('multer');
 const path = require('path');
 const fs = require('fs')
-const bcrypt = require('bcryptjs');
 const { body } = require('express-validator');
-// const isRemember = require('../middlewares/isRemember');
-// const acceso = require('../middlewares/acceso');
 
 const userControllers = require(path.resolve(__dirname,'../controllers/userController'));
 
@@ -23,9 +19,9 @@ const ValidationRegisterComercial = [
   body('nombre').matches(soloLetrasRGEX).withMessage('El nombre solo puede contener letras'),
   body('apellido').notEmpty().withMessage('El apellido no puede estar vacío'),
   body('apellido').matches(soloLetrasRGEX).withMessage('El apellido solo puede contener letras'),
-  body('dia').matches(diaRGEX).withMessage('El dia ingresada es unvalido'),
-  body('mes').matches(mesRGEX).withMessage('El mes ingresada es unvalido'),
-  body('año').matches(añoRGEX).withMessage('El año ingresada es unvalido'),
+  body('dia').matches(diaRGEX).withMessage('El dia ingresada es inválido'),
+  body('mes').matches(mesRGEX).withMessage('El mes ingresada es inválido'),
+  body('año').matches(añoRGEX).withMessage('El año ingresada es inválido'),
   body('año').custom((value, {req}) =>{
     if( fechaRGEX.test(req.body.dia + "/" + req.body.mes + "/" + req.body.año)){
       return true    
@@ -33,7 +29,16 @@ const ValidationRegisterComercial = [
       return false
     }    
   }).withMessage('La fecha ingresada es invalida'),
-  body('email').matches(emailRGEX).withMessage('Agregar un email válido'),
+  body('email').matches(emailRGEX).withMessage('El email ingresado es inválido'),
+  body('email').custom((value, {req}) => {
+    let usersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../database/users.json')));
+    let checkEmailResult = usersDatabase.some(user => user.email === value);
+    if(checkEmailResult){
+      return false    
+    }else{
+      return true
+    }    
+  }).withMessage('El email ingresado ya esta registrado'),
   body('contraseña').matches(contraseñaRGEX).withMessage('La contraseña debe tener un mínimo de 8 caractéres y contener mayusculas, minusculas y numeros o caracteres especiales'),
   body('repetirContraseña').matches(contraseñaRGEX).withMessage('La confirmación de la contraseña debe tener un mínimo de 8 caractéres'),
   body('repetirContraseña').custom((value, {req}) =>{
@@ -55,9 +60,6 @@ router.get('/logout', userControllers.logout);
 
 router.get('/register', userControllers.register);
 router.post('/register', ValidationRegisterComercial, userControllers.create);
-router.post('/checkEmail', function name(params) {
-  console.log(ruta)
-  console.log(params)
-}, userControllers.checkEmail);
+router.post('/checkEmail', userControllers.checkEmail);
 
 module.exports = router;

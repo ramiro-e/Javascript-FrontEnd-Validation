@@ -75,17 +75,11 @@ const userControllers = {
         }
     },
     checkEmail: (req, res) => {
-        console.log("hola")
-        console.log(req)
+
         let usersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../database/users.json')));
-        let checkEmailResult
-        if(usersDatabase.find(usuario => usuario.email == req.body.email)){
-            checkEmailResult = true
-        }else{
-            checkEmailResult = false 
-        }
-        res.json(checkEmailResult)
-        console.log(checkEmailResult)
+        let checkEmailResult = usersDatabase.some(user => user.email === req.body.email);
+        res.json({ checkEmail: checkEmailResult})
+
         
 
     }
