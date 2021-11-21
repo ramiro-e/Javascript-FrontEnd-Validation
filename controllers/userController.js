@@ -88,7 +88,6 @@ const userControllers = {
         }else{
             res.json({ checkLogin: false})
         }
-
     },
 }
 
