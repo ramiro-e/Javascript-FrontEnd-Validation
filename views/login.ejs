@@ -6,7 +6,16 @@
     <main>
         <div class="box smallbox h2mod">
             <h2>Ingresa tus datos:</h2>
-            <form action="/users/login" method="POST" id="formulario">
+            <% if(typeof(errors) != 'undefined'){%>
+                <div class="input-error">
+                    <ul class="list-unstyled">
+                        <% errors.forEach(error => { %>
+                            <li class="error-msg"><%= error.msg %></li>
+                        <%});%>
+                    </ul>
+                </div>
+            <%}%>  
+            <form action="/users/login" method="POST">
                 <div class="left-align margin20v">
                     
                     <div class="input-field">
@@ -20,12 +29,15 @@
                         <input type="password" id="contraseña" name="contraseña" class="input-neutral">
                         <small  id="contraseña" class="error-msg hide-error-msg">error mesagge</small>
                     </div>
+                    
                 </div>
+
                 <div class="checkbox">
                     <input type="checkbox" name="recordarme"><span>Recordarme</span>
                 </div>
                 
                 <div class="center-align margin20v"><button type="submit" value="Enviar" class="button">Ingresar</button></div>
+                
                 <div class="link">
                     <a href="/users/register">Registrarme</a>
                 </div>

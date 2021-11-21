@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path');
 const fs = require('fs')
+const bcrypt = require('bcryptjs')
 const { body } = require('express-validator');
 
 const userControllers = require(path.resolve(__dirname,'../controllers/userController'));
@@ -14,7 +15,22 @@ let fechaRGEX = /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(
 let emailRGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 let contraseñaRGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
 
-const ValidationRegisterComercial = [
+
+const validacionesLogin = [
+  body('email').custom((value, { req }) => {
+    let usersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../database/users.json')));
+    let userLogin = usersDatabase.find(usuario => usuario.email == req.body.email);
+    if (!userLogin) {
+      return false;
+    } else if(bcrypt.compare(req.body.contraseña,  userLogin.contraseña)){
+      return true;
+    }else{
+      return false;
+    }
+  })
+]
+
+const ValidationRegister = [
   body('nombre').notEmpty().withMessage('El nombre no puede estar vacío'),
   body('nombre').matches(soloLetrasRGEX).withMessage('El nombre solo puede contener letras'),
   body('apellido').notEmpty().withMessage('El apellido no puede estar vacío'),
@@ -53,13 +69,13 @@ const ValidationRegisterComercial = [
 
 /* GET users listing. */
 router.get('/login', userControllers.login);
-router.post('/login', userControllers.access);
+router.post('/login', validacionesLogin, userControllers.access);
 router.get('/logout', userControllers.logout);
 
-
-
 router.get('/register', userControllers.register);
-router.post('/register', ValidationRegisterComercial, userControllers.create);
+router.post('/register', ValidationRegister, userControllers.create);
+
 router.post('/checkEmail', userControllers.checkEmail);
+router.post('/checkLogin', userControllers.checkLogin);
 
 module.exports = router;
