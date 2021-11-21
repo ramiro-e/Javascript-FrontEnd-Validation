@@ -4,16 +4,30 @@
   <body>
     <%- include('./partials/header'); %>
     <main>
-      <div class="box smallbox">
-        <div class="center-align margin20v">
-          <h2>¿ya te registraste? <br><strong>Ingresa con tu email</strong></h2>
-          <a href="/users/login" class="button">Ingresar</a>
+      <% if(locals.usuario){ %>
+        <div class="box smallbox spacebetween">
+          <div class="left-align">
+            <h2>Bienvenido de vuelta <br> <%= locals.usuario.nombre %></h2>
+            <p>Nos da gusto verte de vuelta</p>
+          </div>
+          <div class="center-align margin20v">
+            <h4>¿Ya es hora de irte? <br>Te esperamos pronto</h4>
+            <a href="/users/logout" class="outline-button">Cerrar sesión</a>
+          </div>
         </div>
-        <div class="center-align margin20v">
-          <h2>¿aun no estas registrado? <br><strong>Create un usuario</strong></h2>
-          <a href="/users/register" class="button">Registrate</a>
+      <% }else{ %>
+        <div class="box smallbox spacearound">
+          <div class="center-align">
+            <h2>¿ya te registraste? <br>Ingresa con tu email</h2>
+            <a href="/users/login" class="button margin20v">Ingresar</a>
+          </div>
+          <div class="center-align">
+            <h2>¿aun no estas registrado? <br>Create un usuario</h2>
+            <a href="/users/register" class="button margin20v">Registrate</a>
+          </div>
         </div>
-      </div>
+      <%}%>
+      
     </main>
   </body>
 </html>

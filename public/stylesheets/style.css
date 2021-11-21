@@ -28,15 +28,7 @@ main{
 
 /* ///////////////////////////////// TODOS ///////////////////////////////// */
 
-.smallbox{
-  width: 400px;
-}
 
-.box{
-  background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-}
 
 /* ///////////////////////////////// ALINIAMIENTO ///////////////////////////////// */
 
@@ -193,10 +185,32 @@ main{
 
 /* ///////////////////////////////// CAJAS ///////////////////////////////// */
 
+.box{
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+}
 
+.smallbox{
+  width: 400px;
+  min-height: 300px;
+}
+
+.spacebetween{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.spacearound{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
 
 .largebox{
   width: 800px;
+  min-height: 300px;
 }
 
 .doublebox{

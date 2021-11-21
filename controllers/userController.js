@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');    
 const multer = require('multer');
 const bcrypt = require('bcryptjs');
+const session = require('express-session')
 
 const { validationResult } = require('express-validator');
 
@@ -12,20 +13,21 @@ const userControllers = {
         })
     },
     access: (req, res) => {
-        const errors = validationResult(req);
-
-        if(errors.isEmpty()){
+        let validation = validationResult(req);
+        let errors = validation.errors
+        if(validation.isEmpty()){
             let usersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../database/users.json')));
             let userLogin = usersDatabase.find(usuario => usuario.email == req.body.email);           //return res.send(userLogin);
             delete userLogin.contraseña;
             req.session.usuario = userLogin;
             if(req.body.recordarme != undefined){
-                res.cookie('email', user.email,{maxAge: 1000 * 60 * 60 * 24 * 365})
+                res.cookie('email', userLogin.email,{maxAge: 1000 * 60 * 60 * 24 * 365})
             }
             return res.redirect('/');
         }else{      
             res.render(path.resolve(__dirname, '../views/login'),{
-                title: "Iniciar Sesión"
+                title: "Iniciar Sesión",
+                errors
             });        
         }
     },
@@ -42,9 +44,6 @@ const userControllers = {
     create: (req, res) => {
         let validation = validationResult(req);
         let errors = validation.errors
-        let usersFile = fs.readFileSync(path.resolve(__dirname, '../database/users.json'), {
-            encoding: 'utf-8'
-        });
         if(validation.isEmpty()){
             let user = {
                 nombre: req.body.nombre,
@@ -75,14 +74,22 @@ const userControllers = {
         }
     },
     checkEmail: (req, res) => {
-
         let usersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../database/users.json')));
-        let checkEmailResult = usersDatabase.some(user => user.email === req.body.email);
-        res.json({ checkEmail: checkEmailResult})
+        let result = usersDatabase.some(user => user.email === req.body.email);
+        res.json({ checkEmail: result})
+    },
+    checkLogin: (req, res) => {
+        let usersDatabase = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../database/users.json')));
+        let checkUser = usersDatabase.find(usuario => usuario.email == req.body.email);
+        if (checkUser) {
+            bcrypt.compare(req.body.password, checkUser.contraseña, function(err, result) {
+                res.json({ checkLogin: result})
+            });
+        }else{
+            res.json({ checkLogin: false})
+        }
 
-        
-
-    }
+    },
 }
 
 module.exports = userControllers;
