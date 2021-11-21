@@ -1,14 +1,16 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-let session = require("express-session")
-let cors = require('cors')
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const fs = require('fs'); 
+const cookieParser = require('cookie-parser');
+const session = require("express-session")
+const cors = require('cors')
 
-var indexRouter = require('./routes/indexRoute');
-var usersRouter = require('./routes/usersRoute');
+const indexRouter = require('./routes/indexRoute');
+const usersRouter = require('./routes/usersRoute');
+const middleware = require('./middleware');
 
-var app = express();
+let app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,8 +24,15 @@ app.use(session({secret:"Javascript FrontEnd Validation"}));
 app.use(cors());
 
 
+app.use(middleware)
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+
+
+
+// app.use(middleware);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
